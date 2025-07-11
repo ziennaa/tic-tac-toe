@@ -18,14 +18,20 @@
 .hidden{
     display: none !important;
 }
-.shadow{
-    box-shadow: rgba(0,0,0,0.4) 0px 2px 4px,
-    rgba(0,0,0,0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.3);
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 .border{
     border: 1px solid
     rgba(211, 211, 211, 0.4)
     !important;
+}
+.yellow{
+    color: var(--yellow);
+}
+.turquoise{
+    color: var(--turquoise);
 }
 
 /*seetingg up body and background color*/
@@ -139,7 +145,7 @@ and for text pull to left and then goes back to original
     top: 60px;
     right: 0;
     background-color: #203139;
-    border-radius: 2px;
+    border-radius: 20px;
     padding: 10px;
 }
 .action .menu-btn{
@@ -148,7 +154,7 @@ and for text pull to left and then goes back to original
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 20px;
     color: white;
     background-color: rgba(211, 211, 211, 0.05);
     border: 1px solid transparent;
@@ -162,6 +168,7 @@ and for text pull to left and then goes back to original
 .action .item button:hover{
     text-decoration: underline;
     cursor: pointer;
+    border-radius: 20px;
 }
 
 /*footer styling*/

@@ -14,33 +14,36 @@
 <body>
     <main>
         <div class="grid">
-            <div class="turn">
-                <i class="fa-solid fa-x turquoise"></i>
+            <div class="turn yellow" data-id="turn">
+                <i class="fa-solid fa-x"></i>
                 <!--
                this is a container icon container
                created by font awesome classes
+
+               so in js what we need to do is toggle 
+               yellow => turquoise and x => o
                 -->
                <p>Player 1, you're up!</p>
             </div>
-            <div class="action">
+            <div class="action" data-id="menu">
                 <button class="menu-btn" data-id="menu-btn">
                     Actions
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
-                <div class="item border hidden" data-id="menu-btn">
+                <div class="item border hidden" data-id="menu-items">
                     <button data-id="reset-btn">Reset</button>
                     <button data-id="new-round-btn">New round</button>
                 </div>
             </div>
-            <div class="square shadow"></div>
-            <div class="square shadow"></div>
-            <div class="square shadow"></div>
-            <div class="square shadow"></div>
-            <div class="square shadow"></div>
-            <div class="square shadow"></div>
-            <div class="square shadow"></div>
-            <div class="square shadow"></div>
-            <div class="square shadow"></div>
+            <div id = "1" class="square shadow" data-id="square"></div>
+            <div id = "2"  class="square shadow" data-id="square"></div>
+            <div id = "3"  class="square shadow" data-id="square"></div>
+            <div id = "4"  class="square shadow" data-id="square"></div>
+            <div id = "5"  class="square shadow" data-id="square"></div>
+            <div  id = "6" class="square shadow" data-id="square"></div>
+            <div id = "7"  class="square shadow" data-id="square"></div>
+            <div id = "8"  class="square shadow" data-id="square"></div>
+            <div id = "9"  class="square shadow" data-id="square"></div>
             <div class="score shadow" style="background-color: powderblue">
                 <p>Player 1</p>
                 <span data-id="Player 1 Stats"> 0 wins </span>
@@ -67,15 +70,16 @@
                 @zachgoll</a>
         </p>
         <p>
-            made as a learning project by    
+            Made as a learning project by    
             <a href="https://github.com/ziennaa" style="color: pink">   @ziennaa  </a>
         </p>
     </footer>
-    <div class="model hidden">
+    <div class="model hidden" data-id="model">
         <div class="model-control">
-            <p>Player 1 win!</p>
-            <button>Play again</button>
+            <p data-id="model-text">Player 1 win!</p>
+            <button data-id="model-btn">Play again</button>
         </div>
     </div>
+    <script src="app.js"></script>
 </body>
 </html>   
