@@ -18,8 +18,9 @@ const initial_value = {
     }
 };
 export default class Store{
-    #state = initial_value;
-    constructor(player){
+    //#state = initial_value;
+    constructor(key, player){
+        this.storagekey = key;
         this.player = player;
     }
     get stats(){
@@ -115,7 +116,13 @@ export default class Store{
     }
     // way to get a read only copy of the current state
     #getState(){
-        return this.#state;
+        // instead of storing in memory on prperty of class instance
+        // we're going to replace this with local storage
+        // we'll retrieve from local storage if empty will return undefined
+        const item  = window.localStorage.getItem(this.storagekey);
+        // above storage key which we initialised in constructor of the class
+        return item ? JSON.parse(item) : initial_value;
+        //this.#state;
     } 
     // change to next state
     #saveState(StateorFn){
@@ -134,7 +141,11 @@ export default class Store{
                 throw new Error("Invalid");
                 
         }
-        this.#state = newState;
+        //this.#state = newState;
+        window.localStorage.setItem(this.storagekey, JSON.stringify(newState));
+        // upon reloading no chnages observed!!!!!
+        // but we're storing our state
+        // problem is initialisation of page
      }
 }
 /*

@@ -294,29 +294,39 @@ If tomorrow you want to change
         },
     ];
     console.log(view.$.turn); // to check if it was initialised correctly or not
-    const store = new Store(player);
+    const store = new Store('live-t3-storage-key', player);
     console.log(store.Game);
-    
+    function initView(){
+        view.closeAll();
+        view.clearMoves();
+        view.setTurnIndicator(store.Game.currentPlayer);
+        view.updateScoreboard(store.stats.playerwithstats[0].wins, store.stats.playerwithstats[1].wins, store.stats.ties);
+        view.initialisemoves(store.Game.moves);
 
+    }
+    initView();
+    //view.initialisemoves();
     view.bindGame_reset_event((event)=>{
         console.log("reset event!!!");
         console.log(event);
         view.closeAll();
         // works but doesn't reset so
         store.reset();
-        view.clearMoves();
-        view.setTurnIndicator(store.Game.currentPlayer); // player 1 is gonna be up in next game
-        view.updateScoreboard(store.stats.playerwithstats[0].wins, store.stats.playerwithstats[1].wins, store.stats.ties);
+        initView();
+        //view.clearMoves();
+        //view.setTurnIndicator(store.Game.currentPlayer); // player 1 is gonna be up in next game
+        //view.updateScoreboard(store.stats.playerwithstats[0].wins, store.stats.playerwithstats[1].wins, store.stats.ties);
         console.log(store.stats);
     });
     view.bindGame_NewRound_event((event)=>{
         console.log("new round new round!!!");
         console.log(event);
         store.newRound();
-        view.closeAll();
-        view.clearMoves();
-        view.setTurnIndicator(store.Game.currentPlayer);
-        view.updateScoreboard(store.stats.playerwithstats[0].wins, store.stats.playerwithstats[1].wins, store.stats.ties);
+        //view.closeAll();
+        //view.clearMoves();
+        //view.setTurnIndicator(store.Game.currentPlayer);
+        //view.updateScoreboard(store.stats.playerwithstats[0].wins, store.stats.playerwithstats[1].wins, store.stats.ties);
+        initView();
         
     });
     view.bindGame_PlayerMove_event((square)=>{
@@ -345,10 +355,18 @@ If tomorrow you want to change
     });
  }
  window.addEventListener('load', init);
+// basically when we're waiting for load event we're not actually updating the dom with latest state
+
  // getting uncaught reference error view is not defined
  //using es6 module for better readibility 
  /*view.js
  section1: register all event listeners
  section2: DOM helper methods
 
+ still an issue
+ everything stored in local storage
+ everything working
+ but once we refresh even after storing it isnt showing the left template
+ which we dont want, we wanna ressume
+ we wanna reconstruct the game moves on the initialisation of the page
   */

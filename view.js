@@ -75,6 +75,14 @@ export default class View{
             square.replaceChildren();
         });
     }
+    initialisemoves(moves){
+        this.$$.squares.forEach(square => {
+            const existing_move = moves.find((move) => move.squareId === +square.id);
+            if(existing_move){
+                this.handleplayermove(square, existing_move.player);
+            }
+        })
+    }
     #closeModel(){
         this.$.model.classList.add('hidden');
     }
@@ -104,6 +112,7 @@ export default class View{
         );
          squareEL.replaceChildren(icon);
     };
+    
 
     setTurnIndicator(player){
         const icon = document.createElement('i');
