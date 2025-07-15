@@ -304,6 +304,10 @@ If tomorrow you want to change
         view.initialisemoves(store.Game.moves);
 
     }
+    window.addEventListener('storage', ()=>{
+        console.log("state changed from another tab");
+        initView();
+    })
     initView();
     //view.initialisemoves();
     view.bindGame_reset_event((event)=>{
@@ -369,4 +373,6 @@ If tomorrow you want to change
  but once we refresh even after storing it isnt showing the left template
  which we dont want, we wanna ressume
  we wanna reconstruct the game moves on the initialisation of the page
+
+ however it cannot do 2 player
   */
