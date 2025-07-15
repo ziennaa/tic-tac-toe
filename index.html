@@ -14,8 +14,8 @@
 <body>
     <main>
         <div class="grid">
-            <div class="turn yellow" data-id="turn">
-                <i class="fa-solid fa-x"></i>
+            <div class="turn" data-id="turn">
+                <i class="fa-solid fa-x turquoise"></i>
                 <!--
                this is a container icon container
                created by font awesome classes
@@ -23,7 +23,7 @@
                so in js what we need to do is toggle 
                yellow => turquoise and x => o
                 -->
-               <p>Player 1, you're up!</p>
+               <p class="turquoise">Player 1, you're up!</p>
             </div>
             <div class="action" data-id="menu">
                 <button class="menu-btn" data-id="menu-btn">
@@ -46,7 +46,7 @@
             <div id = "9"  class="square shadow" data-id="square"></div>
             <div class="score shadow" style="background-color: powderblue">
                 <p>Player 1</p>
-                <span data-id="Player 1 Stats"> 0 wins </span>
+                <span data-id="p1wins"> 0 wins </span>
             </div>
             <div class="score shadow" style="background-color: rgb(77, 129, 161);">
                 <p>Ties</p>
@@ -54,7 +54,7 @@
             </div>
             <div class="score shadow" style="background-color: powderblue;">
                 <p>Player 2</p>
-                <span data-id="Player 2 Stats"> 0 wins </span>
+                <span data-id="p2wins"> 0 wins </span>
             </div>
         </div>
     </main>
@@ -80,6 +80,6 @@
             <button data-id="model-btn">Play again</button>
         </div>
     </div>
-    <script src="app.js"></script>
+    <script src="app.js" type="module"></script>
 </body>
 </html>   

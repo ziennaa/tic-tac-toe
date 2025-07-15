@@ -90,7 +90,7 @@ this media we did for tablet or desktop the original is for mobile*/
     align-self: center;
     display: flex;
     gap: 20px;
-    color: var(--yellow);
+    /*color: var(--yellow);*/
 }
 .turn p{
     font-size: 14px;

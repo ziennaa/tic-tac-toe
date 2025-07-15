@@ -1,3 +1,7 @@
+// importing view and store, which was made for better functionality and readibility of code
+import View from './view.js';
+import Store from './store.js';
+/*
 // toggling menu first
 const App = {
     /*
@@ -8,6 +12,7 @@ const App = {
     convention that devs often use for specific purpose
     usually used to group DOM references*/
     // All of OUR SELECTED HTML ELEMENTS
+    /*
     $: {
         menu : document.querySelector('[data-id= "menu"]'),
         // selected action div class
@@ -27,7 +32,7 @@ const App = {
         able to derive it on the basis of moves array */
         // now we're thinking of which player icon to add
         // to square
-        moves: [],
+       /* moves: [],
     },
     getGameStatus(moves){
         const p1moves = moves.filter((move)=>move.playerId===1).map((move)=> +move.squareId);
@@ -47,7 +52,7 @@ const App = {
         ];
                 /* instead of looping through each square
                 we're gonna track that in state*/
-        let winner = null;
+      /*  let winner = null;
         winning_patterns.forEach(patters=> {
             //console.log({patters, p1moves, p2moves});
             const p1wins = patters.every((v)=>p1moves.includes(v))
@@ -101,7 +106,7 @@ const App = {
                 //<i class="fa-solid fa-x yellow"></i>
                 //<i class="fa-solid fa-o turquoise"></i>
                 /*target always represents the html element that was clicked
-                not necesrailliy the square itself*/
+                not necesrailliy the square itself
                 console.log(`current player is ${App.state.currentPlayer}`);
                 console.log("square: ", square);
                 console.log("event target: ", event.target);
@@ -116,7 +121,7 @@ const App = {
                 // check if there is already a play, if so, return early
                 /*if(square.hasChildNodes()){
                     return;
-                }*/
+                }
                const has_move = (squareId)=>{
                 const existing_move = App.state.moves.find(
                     move=> move.squareId===squareId
@@ -185,7 +190,7 @@ const App = {
                 ];*/
                 /* instead of looping through each square
                 we're gonna track that in state*/
-                const game = App.getGameStatus(App.state.moves)
+              /*  const game = App.getGameStatus(App.state.moves)
                 console.log(game);
                 if(game.status === 'complete'){
                     App.$.model.classList.remove('hidden');
@@ -204,13 +209,13 @@ const App = {
                     new round
                     reset
                     play again + with infor of who wins or tie */
-                    App.$.model_text.textContent = text;
-                };
-            });
-        });
+                   // App.$.model_text.textContent = text;
+             //   };
+           // });
+        //});
         
-    },
-};
+    //},
+//};
 /*
 menu.addEventListener('click', event =>{
     console.log('hi');
@@ -228,7 +233,7 @@ menu.addEventListener('click', event =>{
     // element getting printed on console
 })
 */
-window.addEventListener('load', ()=>App.init());
+//window.addEventListener('load', ()=>App.init());*/
 /*
 window: wait for document to load so that it becomes
 safe to use then
@@ -270,3 +275,80 @@ If tomorrow you want to change
  total tie
  prior game history
  */
+
+ function init(){
+    const view = new View(); // making class instant of view
+    const player = [
+        {
+            id: 1,
+            name: "Player 1",
+            iconClass: "fa-x",
+            colorClass: "turquoise",
+
+        },
+        {
+            id: 2,
+            name: "Player 2",
+            iconClass: "fa-o",
+            colorClass: "yellow",
+        },
+    ];
+    console.log(view.$.turn); // to check if it was initialised correctly or not
+    const store = new Store(player);
+    console.log(store.Game);
+    
+
+    view.bindGame_reset_event((event)=>{
+        console.log("reset event!!!");
+        console.log(event);
+        view.closeAll();
+        // works but doesn't reset so
+        store.reset();
+        view.clearMoves();
+        view.setTurnIndicator(store.Game.currentPlayer); // player 1 is gonna be up in next game
+        view.updateScoreboard(store.stats.playerwithstats[0].wins, store.stats.playerwithstats[1].wins, store.stats.ties);
+        console.log(store.stats);
+    });
+    view.bindGame_NewRound_event((event)=>{
+        console.log("new round new round!!!");
+        console.log(event);
+        store.newRound();
+        view.closeAll();
+        view.clearMoves();
+        view.setTurnIndicator(store.Game.currentPlayer);
+        view.updateScoreboard(store.stats.playerwithstats[0].wins, store.stats.playerwithstats[1].wins, store.stats.ties);
+        
+    });
+    view.bindGame_PlayerMove_event((square)=>{
+        console.log("player moves!");
+        console.log(event);
+        //const clicked_square = event.target;
+        const existing_move = store.Game.moves.find(move => move.squareId === +square.id);
+        if(existing_move){
+            return
+        }
+        // place an icon of the currentplayer in the square
+        view.handleplayermove(square, store.Game.currentPlayer);
+        // advance to the next state by pushing the move to the moves array
+        store.playerMove(+square.id);
+        // we wanna update our state, but not current player but for next player
+        // state change happened between the 2 store.Game.currentPlayer
+        if(store.Game.status.isComplete){
+            view.openModel(store.Game.status.winner? `${store.Game.status.winner.name} wins!`: 'Tie!' );
+            return;
+        }
+        // set the next player indicator
+        view.setTurnIndicator(store.Game.currentPlayer);
+        //view.handleplayermove(event.target, player[1]);
+        // first we need to handle the player
+
+    });
+ }
+ window.addEventListener('load', init);
+ // getting uncaught reference error view is not defined
+ //using es6 module for better readibility 
+ /*view.js
+ section1: register all event listeners
+ section2: DOM helper methods
+
+  */
